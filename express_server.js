@@ -6,6 +6,11 @@ const PORT = 8080;
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Return a string of 6 random alpha-numeric char's (only lowercase)
+function generateRandomString() {
+  return ((Math.random() + 1) * parseInt(100000, 36)).toString(36).slice(0, 6);
+}
+
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
@@ -28,9 +33,10 @@ app.get('/urls/new', (req, res) => {
 });
 
 // CREATE
-// app.post('/urls', (req, res) => {
-
-// });
+app.post('/urls', (req, res) => {
+  console.log(req.body);
+  res.send('ok');
+});
 
 // SHOW
 app.get('/urls/:shortURL', (req, res) => {
