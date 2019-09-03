@@ -121,6 +121,18 @@ app.get('/register', (req, res) => {
   res.render('urls_register', templateVars);
 });
 
+/* REGISTRATION HANDLER */
+app.post('/register', (req, res) => {
+  const uid = generateRandomString();
+  users[uid] = {
+    id: uid,
+    email: req.body.email,
+    password: req.body.password
+  };
+  res.cookie('user_id', uid);
+  res.redirect('/urls');
+});
+
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
