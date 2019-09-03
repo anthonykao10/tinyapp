@@ -9,15 +9,28 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+// HOME
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
 
+// INDEX
 app.get('/urls', (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render('urls_index', templateVars);
 });
 
+// NEW
+app.get('/urls/new', (req, res) => {
+  res.render('urls_new');
+});
+
+// CREATE
+// app.post('/urls', (req, res) => {
+
+// });
+
+// SHOW
 app.get('/urls/:shortURL', (req, res) => {
   let templateVars = { 
     longURL: urlDatabase[req.params.shortURL],
