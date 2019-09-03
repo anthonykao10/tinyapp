@@ -16,36 +16,43 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
-// HOME
+/* HOME */
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
 
-// INDEX
+/* INDEX */
 app.get('/urls', (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render('urls_index', templateVars);
 });
 
-// NEW
+/* NEW */
 app.get('/urls/new', (req, res) => {
   res.render('urls_new');
 });
 
-// CREATE
+/* CREATE */
 app.post('/urls', (req, res) => {
   let shortURL = generateRandomString();
   urlDatabase[shortURL] = req.body.longURL;
   res.redirect(`/urls/${shortURL}`);
 });
 
-// SHOW
+/* SHOW */
 app.get('/urls/:shortURL', (req, res) => {
   let templateVars = { 
     longURL: urlDatabase[req.params.shortURL],
     shortURL: req.params.shortURL
   };
   res.render('urls_show', templateVars);
+});
+
+/* DELETE */
+app.post('/urls/:shortURL/delete', (req, res) => {
+  let url = req.params.shortURL;
+  delete urlDatabase[url];
+  res.redirect('back');
 });
 
 // Redirect shortURL to corresponding longURL
