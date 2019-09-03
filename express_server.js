@@ -20,7 +20,7 @@ const urlDatabase = {
 
 /* HOME */
 app.get("/", (req, res) => {
-  res.send("Hello!");
+  res.send("homepage");
 });
 
 /* INDEX */
@@ -103,6 +103,10 @@ app.post('/logout', (req, res) => {
 // JSON DATA
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
+});
+
+app.get('*', (req, res) => {
+  res.redirect('/urls');
 });
 
 app.listen(PORT, () => {
