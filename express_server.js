@@ -76,7 +76,7 @@ app.post('/urls/:shortURL/delete', (req, res) => {
   res.redirect('back');
 });
 
-/* Redirect shortURL to corresponding longURL */
+/* REDIRECT ENDPOINT (shortURL => longURL) */
 app.get('/u/:shortURL', (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   // Handle invalid shortURL
@@ -98,6 +98,14 @@ app.post('/login', (req, res) => {
 app.post('/logout', (req, res) => {
   res.clearCookie('username');
   res.redirect('/urls');
+});
+
+/* REGISTER */
+app.get('/register', (req, res) => {
+  let templateVars = {
+    username: req.cookies['username']
+  }
+  res.render('urls_register', templateVars);
 });
 
 app.get("/urls.json", (req, res) => {
