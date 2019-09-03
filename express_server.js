@@ -34,7 +34,11 @@ app.get('/urls/new', (req, res) => {
 
 /* CREATE */
 app.post('/urls', (req, res) => {
+  // Handle conflicts when generating string
   let shortURL = generateRandomString();
+  while (urlDatabase[shortURL]) {
+    shortURL = generateRandomString();
+  }
   urlDatabase[shortURL] = req.body.longURL;
   res.redirect(`/urls/${shortURL}`);
 });
