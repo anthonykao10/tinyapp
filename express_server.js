@@ -100,7 +100,6 @@ app.post('/logout', (req, res) => {
   res.redirect('/urls');
 });
 
-// JSON DATA
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
