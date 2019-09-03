@@ -60,6 +60,10 @@ app.get('/u/:shortURL', (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   // Handle invalid shortURL
   if (longURL === undefined) return res.redirect('/urls');
+  // Check longURL for http protocol 
+  if (longURL.slice(0, 4) !== 'http') {
+    longURL = 'http://' + longURL;
+  }
   res.redirect(longURL);
 });
 
