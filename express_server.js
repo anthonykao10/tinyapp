@@ -34,7 +34,7 @@ app.get('/urls/new', (req, res) => {
 
 /* CREATE */
 app.post('/urls', (req, res) => {
-  // Handle conflicts when generating string
+  // Handle conflicts when generating strings
   let shortURL = generateRandomString();
   while (urlDatabase[shortURL]) {
     shortURL = generateRandomString();
@@ -50,6 +50,14 @@ app.get('/urls/:shortURL', (req, res) => {
     shortURL: req.params.shortURL
   };
   res.render('urls_show', templateVars);
+});
+
+/* EDIT */
+app.post('/urls/:shortURL', (req, res) => {
+  let shortURL = req.params.shortURL;
+  let newLongURL = req.body.longURL;
+  urlDatabase[shortURL] = newLongURL;
+  res.redirect(`/urls/${shortURL}`);
 });
 
 /* DELETE */
