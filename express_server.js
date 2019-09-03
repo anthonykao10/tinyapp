@@ -69,7 +69,7 @@ app.post('/urls/:shortURL/delete', (req, res) => {
   res.redirect('back');
 });
 
-// Redirect shortURL to corresponding longURL
+/* Redirect shortURL to corresponding longURL */
 app.get('/u/:shortURL', (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   // Handle invalid shortURL
@@ -79,6 +79,16 @@ app.get('/u/:shortURL', (req, res) => {
     longURL = 'http://' + longURL;
   }
   res.redirect(longURL);
+});
+
+/* LOGIN */
+app.post('/login', (req, res) => {
+  console.log('req.body: ', req.body);
+  console.log('req.body.username: ', req.body.username);
+  console.log('req.cookies: ', req.cookies);
+  res.cookie('username', req.body.username);
+  console.log('req.cookies: ', req.cookies);
+  res.redirect('/urls');
 });
 
 // JSON DATA
