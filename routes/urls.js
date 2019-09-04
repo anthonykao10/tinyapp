@@ -5,6 +5,12 @@ const util = require('../helpers');
 // INDEX
 router.get('/', (req, res) => {
   const uid = req.cookies['user_id'];
+  if (!uid) {
+    return res.redirect('login');
+  }
+  console.log('util.urlsForUser(uid): ', util.urlsForUser(uid));
+  const userURLs = util.urlsForUser(uid);
+  console.log('userURLs: ', userURLs);
   let templateVars = {
     urls: db.urlDatabase,
     user: db.users[uid]
