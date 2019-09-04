@@ -28,7 +28,7 @@ app.get('/u/:shortURL', (req, res) => {
   res.redirect(longURL);
 });
 
-// Returns json data
+// Returns URLs json data
 app.get("/urls.json", (req, res) => {
   res.json(db.urlDatabase);
 });

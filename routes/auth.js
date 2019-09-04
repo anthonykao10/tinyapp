@@ -5,6 +5,8 @@ const util = require('../helpers');
 // LOGIN
 router.get('/login', (req, res) => {
   const uid = req.cookies['user_id'];
+  // console.log('uid: ', uid);
+  // console.log('db.users[uid]: ', db.users[uid]);
   const templateVars = {
     user: db.users[uid]
   };

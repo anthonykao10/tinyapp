@@ -8,11 +8,11 @@ router.get('/', (req, res) => {
   if (!uid) {
     return res.redirect('login');
   }
-  console.log('util.urlsForUser(uid): ', util.urlsForUser(uid));
-  const userURLs = util.urlsForUser(uid);
-  console.log('userURLs: ', userURLs);
+  const currUserURLs = util.urlsForUser(uid);
+  // console.log('userURLs: ', currUserURLs);
+  
   let templateVars = {
-    urls: db.urlDatabase,
+    urls: currUserURLs,
     user: db.users[uid]
    };
   res.render('urls_index', templateVars);

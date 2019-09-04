@@ -24,3 +24,18 @@ exports.getUIDFromEmail = function(email) {
   }
   return false;
 };
+
+/**
+ * Returns the URLs in urlDatabase that were created by a user
+ * @param {string} uid
+ * @return {object} Object of keys: 'shortURL', vals: 'longURL'
+ */
+exports.urlsForUser = function(uid) {
+  const output = {};
+  for (url in db.urlDatabase) {
+    if (db.urlDatabase[url].userID === uid) {
+      output[url] = db.urlDatabase[url].longURL;
+    }
+  }
+  return output;
+};
