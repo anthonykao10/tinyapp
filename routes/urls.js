@@ -61,16 +61,24 @@ router.get('/:shortURL', (req, res) => {
 router.post('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const newLongURL = req.body.longURL;
-  // console.log('shortURL: ', shortURL);
-  // console.log('db.urlDatabase[shortURL]: ', db.urlDatabase[shortURL]);
+  const currUser = req.cookies['user_id'];
+  // Only authorize users to edit their own URL
+  if (currUser !== db.urlDatabase[shortURL].userID) {
+    return res.status(400).send('Unauthorized action');
+  }
   db.urlDatabase[shortURL].longURL = newLongURL;
   res.redirect(`/${shortURL}`);
 });
 
 // DELETE
 router.post('/:shortURL/delete', (req, res) => {
-  const url = req.params.shortURL;
-  delete db.urlDatabase[url];
+  const shortURL = req.params.shortURL;
+  const currUser = req.cookies['user_id'];
+  // Only authorize users to edit their own URL
+  if (currUser !== db.urlDatabase[shortURL].userID) {
+    return res.status(400).send('Unauthorized action');
+  }
+  delete db.urlDatabase[shortURL];
   res.redirect('back');
 });
 
