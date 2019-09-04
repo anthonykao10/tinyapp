@@ -14,19 +14,23 @@ router.get('/', (req, res) => {
 
 // CREATE
 router.post('/', (req, res) => {
-  // Handle conflicts when generating strings
   const shortURL = util.generateRandomString();
+  // Handle conflicts when generating short URL's
   while (db.urlDatabase[shortURL]) {
     shortURL = util.generateRandomString();
   }
-  db.urlDatabase[shortURL] = req.body.longURL;
+  // Create new URL object
+  db.urlDatabase[shortURL] = {
+    longURL: req.body.longURL,
+    userID: req.cookies['user_id']
+  }
   res.redirect(`/urls/${shortURL}`);
 });
 
 // NEW
 router.get('/new', (req, res) => {
   const uid = req.cookies['user_id'];
-  // Redirect if user not logged in
+  // Verify user is authenticated
   if (!uid) return res.redirect('/login');
   const templateVars = {
     user: db.users[uid]
@@ -37,8 +41,9 @@ router.get('/new', (req, res) => {
 // SHOW
 router.get('/:shortURL', (req, res) => {
   const uid = req.cookies['user_id'];
+  debugger;
   const templateVars = { 
-    longURL: db.urlDatabase[req.params.shortURL],
+    longURL: db.urlDatabase[req.params.shortURL].longURL,
     shortURL: req.params.shortURL,
     user: db.users[uid]
   };
@@ -49,7 +54,9 @@ router.get('/:shortURL', (req, res) => {
 router.post('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const newLongURL = req.body.longURL;
-  db.urlDatabase[shortURL] = newLongURL;
+  // console.log('shortURL: ', shortURL);
+  // console.log('db.urlDatabase[shortURL]: ', db.urlDatabase[shortURL]);
+  db.urlDatabase[shortURL].longURL = newLongURL;
   res.redirect(`/${shortURL}`);
 });
 

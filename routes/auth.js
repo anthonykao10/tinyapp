@@ -7,7 +7,7 @@ router.get('/login', (req, res) => {
   const uid = req.cookies['user_id'];
   const templateVars = {
     user: db.users[uid]
-  }
+  };
   res.render('login', templateVars);
 });
 

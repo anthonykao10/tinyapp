@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 // REDIRECT ENDPOINT (shortURL => longURL)
 app.get('/u/:shortURL', (req, res) => {
-  let longURL = db.urlDatabase[req.params.shortURL];
+  let longURL = db.urlDatabase[req.params.shortURL].longURL;
   // Handle invalid shortURL
   if (!longURL) return res.redirect('/urls');
   // Check longURL for http protocol 
