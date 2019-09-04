@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const bcrypt = require('bcrypt');
 const db = require('../models/database');
 const util = require('../helpers');
 
@@ -51,13 +52,18 @@ router.post('/register', (req, res) => {
     return res.status(400).send('Email already taken');
   }
 
+  const password = req.body.password;
+  console.log('password: ', password);
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  console.log('hashedPassword: ', hashedPassword);
+
   const uid = util.generateRandomString();
   db.users[uid] = {
     id: uid,
     email: req.body.email,
-    password: req.body.password
+    password: hashedPassword
   };
-  console.log(db.users);
+  // console.log(db.users);
   res.cookie('user_id', uid);
   res.redirect('/urls');
 });
