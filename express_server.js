@@ -130,6 +130,14 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const uid = getUIDFromEmail(req.body.email);
+  // Verify user account exists
+  if (!uid) {
+    return res.status(400).send('Invalid email');
+  }
+  // Verify password is valid
+  if (users[uid].password !== req.body.password) {
+    return res.status(400).send('Invalid password');
+  }
   res.cookie('user_id', uid);
   console.log(uid);
   console.log(req.body);
