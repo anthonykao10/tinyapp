@@ -8,9 +8,15 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
-// Return a string of 6 random alpha-numeric char's (only lowercase)
+// Return a string of 6 random alpha-numeric char's
 function generateRandomString() {
-  return ((Math.random() + 1) * parseInt(100000, 36)).toString(36).slice(0, 6);
+  const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let output = '';
+  for (let i = 0; i < 6; i++) {
+    let randomIdx = Math.floor((Math.random() * 61) + 1);
+    output += values[randomIdx];
+  }
+  return output;
 }
 
 const urlDatabase = {
