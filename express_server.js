@@ -20,9 +20,9 @@ function generateRandomString() {
   return output;
 }
 
-function checkEmailExists(email) {
+function getUIDFromEmail(email) {
   for (uid in users) {
-    if (users[uid].email === email) return true;
+    if (users[uid].email === email) return uid;
   }
   return false;
 }
@@ -54,14 +54,8 @@ app.get("/", (req, res) => {
 /* INDEX */
 app.get('/urls', (req, res) => {
   const uid = req.cookies['user_id'];
-  // console.log('\n=======================');
-  // console.log('req.cookies: ', req.cookies);
-  // console.log('req.cookies[user_id]: ', req.cookies['user_id']);
-  // console.log('users: ', users);
-  // console.log('users[uid]: ', users[uid]);
   let templateVars = {
     urls: urlDatabase,
-    // username: req.cookies['username'],
     user: users[uid]
    };
   res.render('urls_index', templateVars);
@@ -72,7 +66,6 @@ app.get('/urls/new', (req, res) => {
   const uid = req.cookies['user_id'];
   let templateVars = {
     user: users[uid]
-    // username: req.cookies['username']
   }
   res.render('urls_new', templateVars);
 });
@@ -95,7 +88,6 @@ app.get('/urls/:shortURL', (req, res) => {
     longURL: urlDatabase[req.params.shortURL],
     shortURL: req.params.shortURL,
     user: users[uid]
-    // username: req.cookies['username']
   };
   res.render('urls_show', templateVars);
 });
@@ -128,8 +120,20 @@ app.get('/u/:shortURL', (req, res) => {
 });
 
 /* LOGIN */
+app.get('/login', (req, res) => {
+  const uid = req.cookies['user_id'];
+  let templateVars = {
+    user: users[uid]
+  }
+  res.render('urls_login', templateVars);
+});
+
 app.post('/login', (req, res) => {
-  res.cookie('username', req.body.username);
+  const uid = getUIDFromEmail(req.body.email);
+  res.cookie('user_id', uid);
+  console.log(uid);
+  console.log(req.body);
+  console.log(req.body.email);
   res.redirect('/urls');
 });
 
@@ -144,18 +148,16 @@ app.get('/register', (req, res) => {
   const uid = req.cookies['user_id'];
   let templateVars = {
     user: users[uid]  
-    // username: req.cookies['username']
   }
   res.render('urls_register', templateVars);
 });
 
-/* REGISTRATION HANDLER */
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
     return res.status(400).send('Email or Password cannot be empty');
   }
 
-  if (checkEmailExists(req.body.email)) {
+  if (getUIDFromEmail(req.body.email)) {
     return res.status(400).send('Email already taken');
   }
 
