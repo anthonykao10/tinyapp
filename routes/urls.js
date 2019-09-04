@@ -62,7 +62,7 @@ router.post('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const newLongURL = req.body.longURL;
   const currUser = req.cookies['user_id'];
-  // Only authorize users to edit their own URL
+  // Only authorize users to edit URLs they created
   if (currUser !== db.urlDatabase[shortURL].userID) {
     return res.status(400).send('Unauthorized action');
   }
@@ -74,7 +74,7 @@ router.post('/:shortURL', (req, res) => {
 router.post('/:shortURL/delete', (req, res) => {
   const shortURL = req.params.shortURL;
   const currUser = req.cookies['user_id'];
-  // Only authorize users to edit their own URL
+  // Only authorize users to delete URLs they created
   if (currUser !== db.urlDatabase[shortURL].userID) {
     return res.status(400).send('Unauthorized action');
   }
