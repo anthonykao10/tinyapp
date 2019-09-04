@@ -43,6 +43,11 @@ const users = {
     id: "user2RandomID", 
     email: "user2@example.com", 
     password: "dishwasher-funk"
+  },
+  "test": {
+    id: "test", 
+    email: "test@gmail.com", 
+    password: "pass"
   }
 };
 
@@ -125,7 +130,7 @@ app.get('/login', (req, res) => {
   let templateVars = {
     user: users[uid]
   }
-  res.render('urls_login', templateVars);
+  res.render('login', templateVars);
 });
 
 app.post('/login', (req, res) => {
@@ -157,7 +162,7 @@ app.get('/register', (req, res) => {
   let templateVars = {
     user: users[uid]  
   }
-  res.render('urls_register', templateVars);
+  res.render('register', templateVars);
 });
 
 app.post('/register', (req, res) => {
@@ -180,10 +185,12 @@ app.post('/register', (req, res) => {
   res.redirect('/urls');
 });
 
+/* Returns json data */
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
+/* Catch-all */
 app.get('*', (req, res) => {
   res.redirect('/urls');
 });
