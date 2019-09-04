@@ -21,7 +21,8 @@ router.post('/login', (req, res) => {
     return res.status(400).send('Invalid email');
   }
   // Verify password is valid
-  if (db.users[uid].password !== req.body.password) {
+  const password = req.body.password;
+  if (!bcrypt.compareSync(password, db.users[uid].password)) {
     return res.status(400).send('Invalid password');
   }
   res.cookie('user_id', uid);
@@ -53,9 +54,10 @@ router.post('/register', (req, res) => {
   }
 
   const password = req.body.password;
-  console.log('password: ', password);
+  // console.log('\nFROM REGISTER ROUTE ===========================');
+  // console.log('password: ', password);
   const hashedPassword = bcrypt.hashSync(password, 10);
-  console.log('hashedPassword: ', hashedPassword);
+  // console.log('hashedPassword: ', hashedPassword);
 
   const uid = util.generateRandomString();
   db.users[uid] = {
