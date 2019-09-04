@@ -20,6 +20,14 @@ function generateRandomString() {
   return output;
 }
 
+function checkEmailExists(email) {
+  for (uid in users) {
+    if (users[uid].email === email) return true;
+  }
+  return false;
+}
+
+/* DATA */
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
@@ -131,7 +139,11 @@ app.get('/register', (req, res) => {
 /* REGISTRATION HANDLER */
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
-    return res.sendStatus(400);
+    return res.status(400).send('Email or Password cannot be empty');
+  }
+
+  if (checkEmailExists(req.body.email)) {
+    return res.status(400).send('Email already taken');
   }
 
   const uid = generateRandomString();
