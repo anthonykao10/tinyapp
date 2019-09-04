@@ -8,6 +8,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
+/* HELPERS */
 // Return a string of 6 random alpha-numeric char's
 function generateRandomString() {
   const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -129,12 +130,17 @@ app.get('/register', (req, res) => {
 
 /* REGISTRATION HANDLER */
 app.post('/register', (req, res) => {
+  if (req.body.email === '' || req.body.password === '') {
+    return res.sendStatus(400);
+  }
+
   const uid = generateRandomString();
   users[uid] = {
     id: uid,
     email: req.body.email,
     password: req.body.password
   };
+  console.log(users);
   res.cookie('user_id', uid);
   res.redirect('/urls');
 });
