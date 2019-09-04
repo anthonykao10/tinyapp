@@ -2,7 +2,7 @@ const router = require("express").Router();
 const db = require('../models/database');
 const util = require('../helpers');
 
-/* INDEX */
+// INDEX
 router.get('/', (req, res) => {
   const uid = req.cookies['user_id'];
   let templateVars = {
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
   res.render('urls_index', templateVars);
 });
 
-/* CREATE */
+// CREATE
 router.post('/', (req, res) => {
   // Handle conflicts when generating strings
   let shortURL = util.generateRandomString();
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
   res.redirect(`/urls/${shortURL}`);
 });
 
-/* NEW */
+// NEW
 router.get('/new', (req, res) => {
   const uid = req.cookies['user_id'];
   let templateVars = {
@@ -32,7 +32,7 @@ router.get('/new', (req, res) => {
   res.render('urls_new', templateVars);
 });
 
-/* SHOW */
+// SHOW
 router.get('/:shortURL', (req, res) => {
   const uid = req.cookies['user_id'];
   let templateVars = { 
@@ -43,7 +43,7 @@ router.get('/:shortURL', (req, res) => {
   res.render('urls_show', templateVars);
 });
 
-/* EDIT */
+// EDIT
 router.post('/:shortURL', (req, res) => {
   let shortURL = req.params.shortURL;
   let newLongURL = req.body.longURL;
@@ -51,7 +51,7 @@ router.post('/:shortURL', (req, res) => {
   res.redirect(`/${shortURL}`);
 });
 
-/* DELETE */
+// DELETE
 router.post('/:shortURL/delete', (req, res) => {
   let url = req.params.shortURL;
   delete db.urlDatabase[url];

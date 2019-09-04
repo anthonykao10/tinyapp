@@ -1,3 +1,5 @@
+const db = require('./models/database');
+
 /**
  * Return a string of 6 random alpha-numeric char's
  */
@@ -17,8 +19,8 @@ exports.generateRandomString = function() {
  * @return {string|boolean}
  */
 exports.getUIDFromEmail = function(email) {
-  for (uid in users) {
-    if (users[uid].email === email) return uid;
+  for (uid in db.users) {
+    if (db.users[uid].email === email) return uid;
   }
   return false;
 };
