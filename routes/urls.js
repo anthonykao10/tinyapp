@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 // CREATE
 router.post('/', (req, res) => {
   // Handle conflicts when generating strings
-  let shortURL = util.generateRandomString();
+  const shortURL = util.generateRandomString();
   while (db.urlDatabase[shortURL]) {
     shortURL = util.generateRandomString();
   }
@@ -26,7 +26,9 @@ router.post('/', (req, res) => {
 // NEW
 router.get('/new', (req, res) => {
   const uid = req.cookies['user_id'];
-  let templateVars = {
+  // Redirect if user not logged in
+  if (!uid) return res.redirect('/login');
+  const templateVars = {
     user: db.users[uid]
   }
   res.render('urls_new', templateVars);
@@ -35,7 +37,7 @@ router.get('/new', (req, res) => {
 // SHOW
 router.get('/:shortURL', (req, res) => {
   const uid = req.cookies['user_id'];
-  let templateVars = { 
+  const templateVars = { 
     longURL: db.urlDatabase[req.params.shortURL],
     shortURL: req.params.shortURL,
     user: db.users[uid]
@@ -45,15 +47,15 @@ router.get('/:shortURL', (req, res) => {
 
 // EDIT
 router.post('/:shortURL', (req, res) => {
-  let shortURL = req.params.shortURL;
-  let newLongURL = req.body.longURL;
+  const shortURL = req.params.shortURL;
+  const newLongURL = req.body.longURL;
   db.urlDatabase[shortURL] = newLongURL;
   res.redirect(`/${shortURL}`);
 });
 
 // DELETE
 router.post('/:shortURL/delete', (req, res) => {
-  let url = req.params.shortURL;
+  const url = req.params.shortURL;
   delete db.urlDatabase[url];
   res.redirect('back');
 });

@@ -5,7 +5,7 @@ const util = require('../helpers');
 // LOGIN
 router.get('/login', (req, res) => {
   const uid = req.cookies['user_id'];
-  let templateVars = {
+  const templateVars = {
     user: db.users[uid]
   }
   res.render('login', templateVars);
@@ -34,7 +34,7 @@ router.post('/logout', (req, res) => {
 // REGISTER
 router.get('/register', (req, res) => {
   const uid = req.cookies['user_id'];
-  let templateVars = {
+  const templateVars = {
     user: db.users[uid]  
   }
   res.render('register', templateVars);
