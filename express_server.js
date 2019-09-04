@@ -33,6 +33,11 @@ app.get("/urls.json", (req, res) => {
   res.json(db.urlDatabase);
 });
 
+// Returns Users json data
+app.get("/users.json", (req, res) => {
+  res.json(db.users);
+});
+
 app.use('/urls', urlRoutes);
 app.use('/', authRoutes);
 
