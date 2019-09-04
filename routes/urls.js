@@ -47,7 +47,8 @@ router.get('/new', (req, res) => {
 // SHOW
 router.get('/:shortURL', (req, res) => {
   const uid = req.cookies['user_id'];
-  debugger;
+  // Verify user is authenticated
+  if (!uid) return res.redirect('/login');
   const templateVars = { 
     longURL: db.urlDatabase[req.params.shortURL].longURL,
     shortURL: req.params.shortURL,
