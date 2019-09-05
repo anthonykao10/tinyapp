@@ -18,21 +18,25 @@ exports.users = {
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 
-    password: "purple-monkey-dinosaur"
+    password: "$2b$10$Kwblw79bmixDFfJY3Zyvfu0ortF8fMlg1ESRJ.2zLAbo85smi56JO"
+    // password: "purple-monkey-dinosaur"
   },
  "user2RandomID": {
     id: "user2RandomID", 
     email: "user2@example.com", 
-    password: "dishwasher-funk"
+    password: "$2b$10$GRulM25c.Iv3LX5k3LCLHusqEM3L7Lnux5LpMu8nglPxaqlC7TOP."
+    // password: "dishwasher-funk"
   },
   "aJ48lW": {
     id: "aJ48lW", 
     email: "test@test.com", 
-    password: "pass"
+    password: "$2b$10$mQoRIccB9AMZYGBdby5U3uh9FBUtNdU8FU.MtU0e7a//RchqoYfJK"
+    // password: "pass"
   },
   "test": {
     id: "test", 
     email: "test@gmail.com", 
-    password: "pass"
+    password: "$2b$10$n9JfXAERfkvaf/4.yryoFO4iJaUUpsovwlp7aUNXr1TEi039nH3IC"
+    // password: "pass"
   }
 };
