@@ -16,7 +16,10 @@ app.use(cookieSession({
 
 // HOMEPAGE
 app.get("/", (req, res) => {
-  res.redirect("/urls");
+  if (req.session.user_id) {
+    return res.redirect('/urls');
+  }
+  res.redirect('/login');
 });
 
 // REDIRECT ENDPOINT (shortURL => longURL)
