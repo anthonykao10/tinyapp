@@ -5,9 +5,8 @@ const { getURLsForUser, generateRandomString } = require('../helpers');
 // INDEX
 router.get('/', (req, res) => {
   const uid = req.session.user_id;
-  if (!uid) {
-    return res.redirect('login');
-  }
+  // Verify user is authenticated
+  if (!uid) return res.redirect('login');
 
   const currUserURLs = getURLsForUser(uid, urlDatabase);
   let templateVars = {
@@ -62,7 +61,6 @@ router.get('/:shortURL', (req, res) => {
   const uniqueVisits = urlObj.uniqueVisits;
   const visitors = urlObj.visitors;
   const visits = urlObj.visits;
-  console.log('*******VISITS: ', visits);
   const templateVars = { 
     longURL,
     shortURL,

@@ -14,7 +14,7 @@ testURLs  = {
     userID: "aJ48lW",
     totalVisits: 10,
     visitors: {
-      "aJ48lW": [1567722149904]
+      "aJ48lW": 1
     },
     uniqueVisits: 1
   }
