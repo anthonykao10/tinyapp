@@ -29,6 +29,24 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
+
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Visior</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let visit in visitsDatabase) { %>
+              <tr>
+                <td><%= visitsDatabase[visit] %></td>
+                <td><%= Date(visit) %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+
     </div>
   </div>
   <!-- Bootstrap JS -->

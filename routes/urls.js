@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { urlDatabase, usersDatabase } = require('../database');
+const { urlDatabase, usersDatabase, visitsDatabase } = require('../database');
 const { getURLsForUser, generateRandomString } = require('../helpers');
 
 // INDEX
@@ -53,13 +53,23 @@ router.get('/:shortURL', (req, res) => {
   const uid = req.session.user_id;
   // Verify user is authenticated
   if (!uid) return res.redirect('/login');
+
+  const shortURL = req.params.shortURL;
+  const urlObj = urlDatabase[shortURL];
+  const longURL = urlObj.longURL;
+  const totalVisits = urlObj.totalVisits;
+  const visitors = urlObj.visitors;
+  const uniqueVisits = urlObj.uniqueVisits;
+
   const templateVars = { 
-    longURL: urlDatabase[req.params.shortURL].longURL,
-    shortURL: req.params.shortURL,
+    longURL,
+    shortURL,
+    totalVisits,
+    visitors,
+    uniqueVisits,
+    visitsDatabase,
     user: usersDatabase[uid],
-    page: 'show',
-    totalVisits: urlDatabase[req.params.shortURL].totalVisits,
-    uniqueVisits: urlDatabase[req.params.shortURL].uniqueVisits
+    page: 'show'
   };
   res.render('urls_show', templateVars);
 });
