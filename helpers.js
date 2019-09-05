@@ -1,5 +1,3 @@
-const db = require('./models/database');
-
 /**
  * Return a string of 6 random alpha-numeric char's
  */
@@ -18,9 +16,9 @@ exports.generateRandomString = function() {
  * @param {string} email
  * @return {string|boolean}
  */
-exports.getUIDFromEmail = function(email) {
-  for (uid in db.users) {
-    if (db.users[uid].email === email) return uid;
+exports.getUIDFromEmail = function(email, database) {
+  for (uid in database) {
+    if (database[uid].email === email) return uid;
   }
   return false;
 };
@@ -30,11 +28,11 @@ exports.getUIDFromEmail = function(email) {
  * @param {string} uid
  * @return {object} Object of keys: 'shortURL', vals: 'longURL'
  */
-exports.urlsForUser = function(uid) {
+exports.getURLsForUser = function(uid, database) {
   const output = {};
-  for (url in db.urlDatabase) {
-    if (db.urlDatabase[url].userID === uid) {
-      output[url] = db.urlDatabase[url].longURL;
+  for (url in database) {
+    if (database[url].userID === uid) {
+      output[url] = database[url].longURL;
     }
   }
   return output;
