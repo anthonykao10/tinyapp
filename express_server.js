@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const urlRoutes = require('./routes/urls');
 const authRoutes = require('./routes/auth');
 const db = require('./models/database');
@@ -9,7 +9,10 @@ const PORT = 8080;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session',
+  keys: ['supersecretkey']
+}));
 
 // HOMEPAGE
 app.get("/", (req, res) => {
