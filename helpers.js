@@ -48,8 +48,6 @@ exports.getURLsForUser = function(uid, database) {
  */
 exports.addVisitor = function(uid, shortURL, database) {
   const visitors = database[shortURL].visitors;
-  console.log('visitors: ', visitors);
-  console.log('visitors[uid]: ', visitors[uid]);
   visitors[uid] = visitors[uid] ? ++visitors[uid] : 1;
   return visitors;
 };
