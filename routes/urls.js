@@ -12,7 +12,8 @@ router.get('/', (req, res) => {
   const currUserURLs = getURLsForUser(uid, db.urlDatabase);
   let templateVars = {
     urls: currUserURLs,
-    user: db.users[uid]
+    user: db.users[uid],
+    page: 'index'
    };
   res.render('urls_index', templateVars);
 });
@@ -38,7 +39,8 @@ router.get('/new', (req, res) => {
   // Verify user is authenticated
   if (!uid) return res.redirect('/login');
   const templateVars = {
-    user: db.users[uid]
+    user: db.users[uid],
+    page: 'new'
   }
   res.render('urls_new', templateVars);
 });

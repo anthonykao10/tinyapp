@@ -6,13 +6,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link" href="/urls">My URLs</a>
-        <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
-      </div>
+      <ul class="navbar-nav mr-auto">
+        <li class="<%= page === 'index' ? 'active' : '' %>"">
+          <a class="nav-item nav-link" href="/urls">My URLs</a>
+        </li>
+        <li class="<%= page === 'new' ? 'active' : '' %>">
+          <a class="nav-item nav-link" href="/urls/new">Create URL</a>
+        </li>
+      </ul>
       <% if (user) { %>
         <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
-          <span class="nav-item nav-link">Logged In As: <%= user.email %></span>
+          <span class="nav-item nav-link"><%= user.email %></span>
           <button type="submit" class="btn btn-outline-dark my-2 my-sm-0">Logout</button>
         </form>
       <% } else { %>
