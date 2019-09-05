@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require('../models/database');
+const { urlDatabase, usersDatabase } = require('../database');
 const { getURLsForUser, generateRandomString } = require('../helpers');
 
 // INDEX
@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
     return res.redirect('login');
   }
 
-  const currUserURLs = getURLsForUser(uid, db.urlDatabase);
+  const currUserURLs = getURLsForUser(uid, urlDatabase);
   let templateVars = {
     urls: currUserURLs,
-    user: db.users[uid],
+    user: usersDatabase[uid],
     page: 'index'
    };
   res.render('urls_index', templateVars);
@@ -22,11 +22,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const shortURL = generateRandomString();
   // Handle conflicts when generating short URL's
-  while (db.urlDatabase[shortURL]) {
+  while (urlDatabase[shortURL]) {
     shortURL = generateRandomString();
   }
   // Create new URL object
-  db.urlDatabase[shortURL] = {
+  urlDatabase[shortURL] = {
     longURL: req.body.longURL,
     userID: req.session.user_id
   }
@@ -39,7 +39,7 @@ router.get('/new', (req, res) => {
   // Verify user is authenticated
   if (!uid) return res.redirect('/login');
   const templateVars = {
-    user: db.users[uid],
+    user: usersDatabase[uid],
     page: 'new'
   }
   res.render('urls_new', templateVars);
@@ -51,9 +51,9 @@ router.get('/:shortURL', (req, res) => {
   // Verify user is authenticated
   if (!uid) return res.redirect('/login');
   const templateVars = { 
-    longURL: db.urlDatabase[req.params.shortURL].longURL,
+    longURL: urlDatabase[req.params.shortURL].longURL,
     shortURL: req.params.shortURL,
-    user: db.users[uid],
+    user: usersDatabase[uid],
     page: 'show'
   };
   res.render('urls_show', templateVars);
@@ -65,10 +65,10 @@ router.put('/:shortURL', (req, res) => {
   const newLongURL = req.body.longURL;
   const currUser = req.session.user_id;
   // Only authorize users to edit URLs they created
-  if (currUser !== db.urlDatabase[shortURL].userID) {
+  if (currUser !== urlDatabase[shortURL].userID) {
     return res.status(400).send('Unauthorized action');
   }
-  db.urlDatabase[shortURL].longURL = newLongURL;
+  urlDatabase[shortURL].longURL = newLongURL;
   res.redirect(`/${shortURL}`);
 });
 
@@ -77,10 +77,10 @@ router.delete('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const currUser = req.session.user_id;
   // Only authorize users to delete URLs they created
-  if (currUser !== db.urlDatabase[shortURL].userID) {
+  if (currUser !== urlDatabase[shortURL].userID) {
     return res.status(400).send('Unauthorized action');
   }
-  delete db.urlDatabase[shortURL];
+  delete urlDatabase[shortURL];
   res.redirect('back');
 });
 

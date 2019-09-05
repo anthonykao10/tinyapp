@@ -9,7 +9,7 @@ exports.urlDatabase = {
   }
 };
 
-exports.users = {
+exports.usersDatabase = {
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const urlRoutes = require('./routes/urls');
 const authRoutes = require('./routes/auth');
-const db = require('./models/database');
+const { urlDatabase, usersDatabase } = require('./database');
 const PORT = 8080;
 
 const app = express();
@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 // REDIRECT ENDPOINT (shortURL => longURL)
 app.get('/u/:shortURL', (req, res) => {
-  let longURL = db.urlDatabase[req.params.shortURL].longURL;
+  let longURL = urlDatabase[req.params.shortURL].longURL;
   // Handle invalid shortURL
   if (!longURL) return res.redirect('/urls');
   // Check longURL for http protocol 
@@ -38,12 +38,12 @@ app.get('/u/:shortURL', (req, res) => {
 
 // Returns URLs json data
 app.get("/urls.json", (req, res) => {
-  res.json(db.urlDatabase);
+  res.json(urlDatabase);
 });
 
 // Returns Users json data
 app.get("/users.json", (req, res) => {
-  res.json(db.users);
+  res.json(usersDatabase);
 });
 
 app.use('/urls', urlRoutes);
