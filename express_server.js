@@ -16,7 +16,7 @@ app.use(cookieSession({
 
 // HOMEPAGE
 app.get("/", (req, res) => {
-  res.send("homepage");
+  res.redirect("/urls");
 });
 
 // REDIRECT ENDPOINT (shortURL => longURL)
