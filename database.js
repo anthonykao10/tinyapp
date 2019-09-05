@@ -11,7 +11,7 @@ exports.urlDatabase = {
     userID: "aJ48lW",
     totalVisits: 10,
     visitors: {
-      "aJ48lW": 1
+      "aJ48lW": [1567722149904]
     },
     uniqueVisits: 10
   }
@@ -43,3 +43,7 @@ exports.usersDatabase = {
     // password: "pass"
   }
 };
+
+exports.visitsDatabase = {
+  "1567722149904": "aJ48lW" 
+}
