@@ -23,13 +23,6 @@ exports.getUserByEmail = function(email, database) {
   return undefined;
 };
 
-// exports.getUserByEmail = function(email, database) {
-//   for (uid in database) {
-//     if (database[uid].email === email) return uid;
-//   }
-//   return false;
-// };
-
 /**
  * Returns the URLs in urlDatabase that were created by a user
  * @param {string} uid
