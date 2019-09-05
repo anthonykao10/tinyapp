@@ -3,17 +3,21 @@ exports.urlDatabase = {
     longURL: "http://www.lighthouselabs.ca",
     userID: "aJ48lW",
     totalVisits: 12,
+    uniqueVisits: 12,
     visitors: {},
-    uniqueVisits: 12
+    visits: {}
   },
   "9sm5xK": {
     longURL: "http://www.google.com",
     userID: "aJ48lW",
     totalVisits: 10,
+    uniqueVisits: 10,
     visitors: {
-      "aJ48lW": [1567722149904]
+      "aJ48lW": 1
     },
-    uniqueVisits: 10
+    visits: {
+      "1567722149904": "aJ48lW" 
+    }
   }
 };
 
@@ -43,7 +47,3 @@ exports.usersDatabase = {
     // password: "pass"
   }
 };
-
-exports.visitsDatabase = {
-  "1567722149904": "aJ48lW" 
-}
