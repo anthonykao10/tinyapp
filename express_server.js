@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const urlRoutes = require('./routes/urls');
@@ -8,6 +9,7 @@ const PORT = 8080;
 
 const app = express();
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({
   name: 'session',

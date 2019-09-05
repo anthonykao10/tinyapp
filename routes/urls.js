@@ -60,7 +60,7 @@ router.get('/:shortURL', (req, res) => {
 });
 
 // EDIT
-router.post('/:shortURL', (req, res) => {
+router.put('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const newLongURL = req.body.longURL;
   const currUser = req.session.user_id;
@@ -73,7 +73,7 @@ router.post('/:shortURL', (req, res) => {
 });
 
 // DELETE
-router.post('/:shortURL/delete', (req, res) => {
+router.delete('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
   const currUser = req.session.user_id;
   // Only authorize users to delete URLs they created
