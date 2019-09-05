@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const urlRoutes = require('./routes/urls');
 const authRoutes = require('./routes/auth');
-const { urlDatabase, usersDatabase, visitsDatabase } = require('./database');
+const { urlDatabase, usersDatabase } = require('./database');
 const { addVisitor } = require('./helpers');
 const PORT = 8080;
 
@@ -36,8 +36,10 @@ app.get('/u/:shortURL', (req, res) => {
   }
   // Increment total visits
   urlDatabase[req.params.shortURL].totalVisits++;
-  // Log visit in visitorDatabase
-  visitsDatabase[Date.now()] = req.session.user_id;
+  // Log visit in visits Object
+  const visitsObj = urlDatabase[req.params.shortURL].visits;
+  visitsObj[Date.now()] = req.session.user_id;
+
   // Add visitor and update uniqueVisits value for url
   const visitors = addVisitor(req.session.user_id, req.params.shortURL, urlDatabase);
   urlDatabase[req.params.shortURL].uniqueVisits = Object.keys(visitors).length;
