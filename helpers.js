@@ -37,3 +37,17 @@ exports.getURLsForUser = function(uid, database) {
   }
   return output;
 };
+
+/**
+ * Adds a visitor to "visitors obj" of a "url obj", and returns the visitors obj for that url.
+ * (If visitor has already visited, increment their count). 
+ * @param {string} uid
+ * @param {string} shortURL
+ * @param {object} database
+ * @return {object} visitors
+ */
+exports.addVisitor = function(uid, shortURL, database) {
+  const visitors = database[shortURL].visitors;
+  visitors[uid] = visitors[uid] ? ++visitors[uid] : 1;
+  return visitors;
+};
