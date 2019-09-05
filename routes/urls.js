@@ -53,7 +53,8 @@ router.get('/:shortURL', (req, res) => {
   const templateVars = { 
     longURL: db.urlDatabase[req.params.shortURL].longURL,
     shortURL: req.params.shortURL,
-    user: db.users[uid]
+    user: db.users[uid],
+    page: 'show'
   };
   res.render('urls_show', templateVars);
 });

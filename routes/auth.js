@@ -7,7 +7,8 @@ const { generateRandomString, getUserByEmail } = require('../helpers');
 router.get('/login', (req, res) => {
   const uid = req.session.user_id;
   const templateVars = {
-    user: db.users[uid]
+    user: db.users[uid],
+    page: 'login'
   };
   res.render('login', templateVars);
 });
@@ -37,7 +38,8 @@ router.post('/logout', (req, res) => {
 router.get('/register', (req, res) => {
   const uid = req.session.user_id;
   const templateVars = {
-    user: db.users[uid]  
+    user: db.users[uid],
+    page: 'register'
   }
   res.render('register', templateVars);
 });
