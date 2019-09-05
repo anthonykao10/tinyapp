@@ -29,7 +29,9 @@ router.post('/', (req, res) => {
   urlDatabase[shortURL] = {
     longURL: req.body.longURL,
     userID: req.session.user_id,
-    totalVisits: 0
+    totalVisits: 0,
+    visitors: {},
+    uniqueVisits: 0
   }
   res.redirect(`/urls/${shortURL}`);
 });
@@ -56,7 +58,8 @@ router.get('/:shortURL', (req, res) => {
     shortURL: req.params.shortURL,
     user: usersDatabase[uid],
     page: 'show',
-    totalVisits: urlDatabase[req.params.shortURL].totalVisits
+    totalVisits: urlDatabase[req.params.shortURL].totalVisits,
+    uniqueVisits: urlDatabase[req.params.shortURL].uniqueVisits
   };
   res.render('urls_show', templateVars);
 });

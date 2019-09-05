@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const urlRoutes = require('./routes/urls');
 const authRoutes = require('./routes/auth');
 const { urlDatabase, usersDatabase } = require('./database');
+const { addVisitor } = require('./helpers');
 const PORT = 8080;
 
 const app = express();
@@ -34,6 +35,10 @@ app.get('/u/:shortURL', (req, res) => {
     longURL = 'http://' + longURL;
   }
   urlDatabase[req.params.shortURL].totalVisits++;
+  const visitors = addVisitor(req.session.user_id, req.params.shortURL, urlDatabase);
+  console.log('visitors: ', visitors);
+  urlDatabase[req.params.shortURL].uniqueVisits = Object.keys(visitors).length;
+  console.log('urlDatabase[req.params.shortURL].uniqueVisits: ', urlDatabase[req.params.shortURL].uniqueVisits);
   res.redirect(longURL);
 });
 

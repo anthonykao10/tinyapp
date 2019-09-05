@@ -2,12 +2,18 @@ exports.urlDatabase = {
   "b2xVn2": {
     longURL: "http://www.lighthouselabs.ca",
     userID: "aJ48lW",
-    totalVisits: 12
+    totalVisits: 12,
+    visitors: {},
+    uniqueVisits: 12
   },
   "9sm5xK": {
     longURL: "http://www.google.com",
     userID: "aJ48lW",
-    totalVisits: 10
+    totalVisits: 10,
+    visitors: {
+      "aJ48lW": 1
+    },
+    uniqueVisits: 10
   }
 };
 
