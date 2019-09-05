@@ -16,12 +16,19 @@ exports.generateRandomString = function() {
  * @param {string} email
  * @return {string|boolean}
  */
-exports.getUIDFromEmail = function(email, database) {
+exports.getUserByEmail = function(email, database) {
   for (uid in database) {
-    if (database[uid].email === email) return uid;
+    if (database[uid].email === email) return database[uid];
   }
-  return false;
+  return undefined;
 };
+
+// exports.getUserByEmail = function(email, database) {
+//   for (uid in database) {
+//     if (database[uid].email === email) return uid;
+//   }
+//   return false;
+// };
 
 /**
  * Returns the URLs in urlDatabase that were created by a user

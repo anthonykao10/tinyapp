@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const db = require('../models/database');
-const { generateRandomString, getUIDFromEmail } = require('../helpers');
+const { generateRandomString, getUserByEmail } = require('../helpers');
 
 // LOGIN
 router.get('/login', (req, res) => {
@@ -13,17 +13,17 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  const uid = getUIDFromEmail(req.body.email, db.users);
+  const user = getUserByEmail(req.body.email, db.users);
   // Verify user account exists
-  if (!uid) {
+  if (!user) {
     return res.status(400).send('Invalid email');
   }
   // Verify password is valid
   const password = req.body.password;
-  if (!bcrypt.compareSync(password, db.users[uid].password)) {
+  if (!bcrypt.compareSync(password, db.users[user.id].password)) {
     return res.status(400).send('Invalid password');
   }
-  req.session.user_id = uid;
+  req.session.user_id = user.id;
   res.redirect('/urls');
 });
 
@@ -47,7 +47,7 @@ router.post('/register', (req, res) => {
     return res.status(400).send('Email or Password cannot be empty');
   }
 
-  if (getUIDFromEmail(req.body.email, db.users)) {
+  if (getUserByEmail(req.body.email, db.users)) {
     return res.status(400).send('Email already taken');
   }
 
