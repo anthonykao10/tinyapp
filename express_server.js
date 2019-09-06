@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   if (req.session.user_id) {
     return res.redirect('/urls');
   }
-  res.redirect('/login'); 
+  res.redirect('/login');
 });
 
 // REDIRECT ENDPOINT (shortURL => longURL)
@@ -32,7 +32,7 @@ app.get('/u/:shortURL', (req, res) => {
   let longURL = urlDatabase[req.params.shortURL].longURL;
   if (!longURL) return res.redirect('/urls');
 
-  // Check longURL for http protocol 
+  // Check longURL for http protocol
   if (longURL.slice(0, 4) !== 'http') {
     longURL = 'http://' + longURL;
   }
