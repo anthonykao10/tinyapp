@@ -1,7 +1,7 @@
 const { assert } = require('chai');
 const { addVisitor } = require('../helpers');
 
-testURLs  = {
+const testURLs  = {
   "b2xVn2": {
     longURL: "http://www.lighthouselabs.ca",
     userID: "aJ48lW",
@@ -20,14 +20,8 @@ testURLs  = {
   }
 };
 
-console.log('OUT---database: ', testURLs);
-
-
 describe('addVisitor', () => {
   it('should return an object of visitors with user "uid" added to it (count of 1), when starting with an empty visitors object', () => {
-    console.log('IN---database: ', testURLs);
-    // console.log('***database[shortURL]: ', testURLs["9sm5xK"]);
-    // console.log('===database[shortURL].visitors: ', testURLs["9sm5xK"].visitors);
     const visitors = addVisitor("aJ48lW", "b2xVn2", testURLs);
     const expectedOutput = {
       "aJ48lW": 1
