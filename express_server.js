@@ -27,9 +27,11 @@ app.get("/", (req, res) => {
 
 // REDIRECT ENDPOINT (shortURL => longURL)
 app.get('/u/:shortURL', (req, res) => {
+  // Handle invalid urls
+  if (!urlDatabase[req.params.shortURL]) return res.redirect('/login');
   let longURL = urlDatabase[req.params.shortURL].longURL;
-  // Handle invalid shortURL
   if (!longURL) return res.redirect('/urls');
+
   // Check longURL for http protocol 
   if (longURL.slice(0, 4) !== 'http') {
     longURL = 'http://' + longURL;
@@ -39,7 +41,6 @@ app.get('/u/:shortURL', (req, res) => {
   // Log visit in visits Object
   const visitsObj = urlDatabase[req.params.shortURL].visits;
   visitsObj[Date.now()] = req.session.user_id;
-
   // Add visitor and update uniqueVisits value for url
   const visitors = addVisitor(req.session.user_id, req.params.shortURL, urlDatabase);
   urlDatabase[req.params.shortURL].uniqueVisits = Object.keys(visitors).length;
