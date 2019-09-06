@@ -5,6 +5,9 @@ const { generateRandomString, getUserByEmail } = require('../helpers');
 
 // LOGIN
 router.get('/login', (req, res) => {
+  // Prevent authenticated users from logging in again
+  if (req.session.user_id) return res.redirect('/urls');
+
   const uid = req.session.user_id;
   const templateVars = {
     user: usersDatabase[uid],
@@ -36,6 +39,9 @@ router.post('/logout', (req, res) => {
 
 // REGISTER
 router.get('/register', (req, res) => {
+  // Prevent authenticated users from logging in again
+  if (req.session.user_id) return res.redirect('/urls');
+
   const uid = req.session.user_id;
   const templateVars = {
     user: usersDatabase[uid],
