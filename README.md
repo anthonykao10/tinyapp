@@ -1,6 +1,6 @@
 # TinyApp Project
 
-TinyApp is a full stack web application built with Node and Express that allows users to shorten long URLs (à la bit.ly).
+TinyApp is a full stack web application built with Node and Express that allows users to shorten long URLs (à la `bit.ly`).
 
 ## Final Product
 
@@ -43,7 +43,6 @@ To run (with both Mocha and Chai installed):
 $ npm test
 ```
 runs the following command: `./node_modules/mocha/bin/mocha`.
-
 
 ## Features/ Page Descriptions
 - Authentication/authorization using `bcrypt` and `cookie-session`.
