@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
 
 // CREATE
 router.post('/', (req, res) => {
+  // Only allow authenticated requests
+  if (!req.session.user_id) return res.sendStatus(400);
   const shortURL = generateRandomString();
   // Handle conflicts when generating short URL's
   while (urlDatabase[shortURL]) {
@@ -76,6 +78,9 @@ router.get('/:shortURL', (req, res) => {
 
 // EDIT
 router.put('/:shortURL', (req, res) => {
+  // Only allow authenticated requests
+  if (!req.session.user_id) return res.sendStatus(400);
+
   const shortURL = req.params.shortURL;
   const newLongURL = req.body.longURL;
   const currUser = req.session.user_id;
@@ -89,6 +94,9 @@ router.put('/:shortURL', (req, res) => {
 
 // DELETE
 router.delete('/:shortURL', (req, res) => {
+  // Only allow authenticated requests
+  if (!req.session.user_id) return res.sendStatus(400);
+  
   const shortURL = req.params.shortURL;
   const currUser = req.session.user_id;
   // Only authorize users to delete URLs they created
