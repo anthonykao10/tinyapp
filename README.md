@@ -19,16 +19,16 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Getting Started
 
-- Clone the repo
-- Move to the root directory of the project
+- Clone the repo.
+- Move to the root directory of the project.
 ```
 $ cd tinyapp
 ```
-- Install dependencies
+- Install dependencies.
 ```
 $ npm install
 ```
-- Run the development web server
+- Run the development web server.
 ```
 $ node express_server.js
 ```
@@ -42,20 +42,20 @@ To run (with both Mocha and Chai installed):
 ```
 $ npm test
 ```
-runs the following script: `./node_modules/mocha/bin/mocha`
+runs the following script: `./node_modules/mocha/bin/mocha`.
 
 
 ## Features/ Page Descriptions
-- Authentication/authorization using bcrypt and cookie-session
+- Authentication/authorization using bcrypt and cookie-session.
 - /urls page:
   - Shortened URLs saved for the authenticated user
-- /urls/<id> page:
-  - Form for editing the selected URL
-  - Tracks the total number of times a link has been visted
-  - Tracks the number of unique visits per link
-  - Lists the number of unique visitors to the URL (*currently only tracks unique visits from registered users*)
+- /urls/:id page:
+  - Form for editing the selected URL.
+  - Tracks the total number of times a link has been visted.
+  - Tracks the number of unique visits per link (*currently only tracks unique visits from registered users*).
+  - Lists every visit to the URL (visitor ID and timestamp).
 - /urls/new page:
-  - Form for submitting a new url to be shortened
+  - Form for submitting a new url to be shortened.
 
 ## Notes
 - This is a project created for learning purposes as part of the Web Development program at [Lighthouse Labs](https://www.lighthouselabs.ca/web-bootcamp).
