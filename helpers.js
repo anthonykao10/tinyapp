@@ -17,7 +17,7 @@ exports.generateRandomString = function() {
  * @return {string|boolean}
  */
 exports.getUserByEmail = function(email, database) {
-  for (uid in database) {
+  for (const uid in database) {
     if (database[uid].email === email) return database[uid];
   }
   return undefined;
@@ -30,7 +30,7 @@ exports.getUserByEmail = function(email, database) {
  */
 exports.getURLsForUser = function(uid, database) {
   const output = {};
-  for (url in database) {
+  for (const url in database) {
     if (database[url].userID === uid) {
       output[url] = database[url].longURL;
     }
@@ -40,7 +40,7 @@ exports.getURLsForUser = function(uid, database) {
 
 /**
  * Adds a visitor to "visitors obj" (of a "url obj") and set value (frequency) to 1.
- * (If visitor exists in object, increment value). 
+ * (If visitor exists in object, increment value).
  * @param {string} uid
  * @param {string} shortURL
  * @param {object} database
