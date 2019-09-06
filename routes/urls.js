@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     urls: currUserURLs,
     user: usersDatabase[uid],
     page: 'index'
-   };
+  };
   res.render('urls_index', templateVars);
 });
 
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // Only allow authenticated requests
   if (!req.session.user_id) return res.sendStatus(400);
-  const shortURL = generateRandomString();
+  let shortURL = generateRandomString();
   // Handle conflicts when generating short URL's
   while (urlDatabase[shortURL]) {
     shortURL = generateRandomString();
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     uniqueVisits: 0,
     visitors: {},
     visits: {}
-  }
+  };
   res.redirect(`/urls/${shortURL}`);
 });
 
@@ -46,7 +46,7 @@ router.get('/new', (req, res) => {
   const templateVars = {
     user: usersDatabase[uid],
     page: 'new'
-  }
+  };
   res.render('urls_new', templateVars);
 });
 
@@ -63,7 +63,7 @@ router.get('/:shortURL', (req, res) => {
   const uniqueVisits = urlObj.uniqueVisits;
   const visitors = urlObj.visitors;
   const visits = urlObj.visits;
-  const templateVars = { 
+  const templateVars = {
     longURL,
     shortURL,
     totalVisits,
@@ -96,7 +96,7 @@ router.put('/:shortURL', (req, res) => {
 router.delete('/:shortURL', (req, res) => {
   // Only allow authenticated requests
   if (!req.session.user_id) return res.sendStatus(400);
-  
+
   const shortURL = req.params.shortURL;
   const currUser = req.session.user_id;
   // Only authorize users to delete URLs they created

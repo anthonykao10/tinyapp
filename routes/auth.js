@@ -46,7 +46,7 @@ router.get('/register', (req, res) => {
   const templateVars = {
     user: usersDatabase[uid],
     page: 'register'
-  }
+  };
   res.render('register', templateVars);
 });
 
