@@ -42,19 +42,19 @@ To run (with both Mocha and Chai installed):
 ```
 $ npm test
 ```
-runs the following script: `./node_modules/mocha/bin/mocha`.
+runs the following command: `./node_modules/mocha/bin/mocha`.
 
 
 ## Features/ Page Descriptions
-- Authentication/authorization using bcrypt and cookie-session.
-- /urls page:
+- Authentication/authorization using `bcrypt` and `cookie-session`.
+- `/urls` page:
   - Shortened URLs saved for the authenticated user
-- /urls/:id page:
+- `/urls/:id` page:
   - Form for editing the selected URL.
   - Tracks the total number of times a link has been visted.
   - Tracks the number of unique visits per link (*currently only tracks unique visits from registered users*).
   - Lists every visit to the URL (visitor ID and timestamp).
-- /urls/new page:
+- `/urls/new` page:
   - Form for submitting a new url to be shortened.
 
 ## Notes
